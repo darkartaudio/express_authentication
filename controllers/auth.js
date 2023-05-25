@@ -11,6 +11,14 @@ router.get("/login", (req, res) => {
   return res.render("auth/login");
 });
 
+router.get('/logout', function(req, res){
+  req.logOut(function(err, next) {
+    if (err) { return next(err); }
+    req.flash('success', 'Logging out... See you next time!');
+    res.redirect('/');
+  });
+});
+
 router.post('/login', passport.authenticate('local', {
   successRedirect: '/',
   failureRedirect: '/auth/login',
